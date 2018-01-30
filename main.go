@@ -8,14 +8,12 @@ import (
 	"golang.org/x/net/webdav"
 )
 
-func init() {
-	flag.Parse()
-}
 func main() {
 	var prefix string
 	var port string
 	flag.StringVar(&prefix, "path", "/", "文件夹前缀")
 	flag.StringVar(&port, "port", ":7777", "监听服务和端口")
+	flag.Parse()
 	fs := new(webdav.Dir)
 	h := new(webdav.Handler)
 	h.FileSystem = *fs
