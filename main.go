@@ -14,7 +14,7 @@ func init() {
 func main() {
 	var prefix string
 	var port string
-	flag.StringVar(&prefix, "path", "/deployment/apps", "文件夹前缀")
+	flag.StringVar(&prefix, "path", "/", "文件夹前缀")
 	flag.StringVar(&port, "port", ":7777", "监听服务和端口")
 	fs := new(webdav.Dir)
 	h := new(webdav.Handler)
