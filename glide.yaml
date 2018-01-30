@@ -1,0 +1,3 @@
+package: gitlab.didapinche.com/plat_webdav
+import:
+- package: golang.org/x/net/webdav
