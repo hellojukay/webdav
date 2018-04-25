@@ -11,15 +11,21 @@ import (
 var bind *string
 var username *string
 var password *string
+var h *webdav.Handler
+
 func init(){
 	bind = flag.String("bind", ":7777", "监听服务和端口")
 	username = flag.String("username","","用户名")
 	password = flag.String("password","","密码")
 	flag.Parse()
+	var fs webdav.Dir = "/"
+	h := new(webdav.Handler)
+	h.FileSystem = fs
+	h.LockSystem = webdav.NewMemLS()
 }
 func auth(w http.ResponseWriter, req *http.Request){
 	u , p , auth := req.BasicAuth()
-	fmt.Printf("current user, username=%s, password=%v, exist",u,p,auth)
+	fmt.Printf("current user, username=%s, password=%s, exist=%v",u,p,auth)
 	if !auth {
 		w.Header().Set("WWW-Authenticate", `Basic realm="davfs"`)
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
@@ -30,10 +36,6 @@ func auth(w http.ResponseWriter, req *http.Request){
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
-	var fs webdav.Dir = "/"
-	h := new(webdav.Handler)
-	h.FileSystem = fs
-	h.LockSystem = webdav.NewMemLS()
 	h.ServeHTTP(w,req)
 }
 func main() {
