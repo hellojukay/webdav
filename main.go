@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"golang.org/x/net/webdav"
+	"fmt"
 )
 var bind *string
 var username *string
@@ -18,6 +19,7 @@ func init(){
 }
 func auth(w http.ResponseWriter, req *http.Request){
 	u , p , auth := req.BasicAuth()
+	fmt.Printf("current user, username=%s, password=%s, exist",u,p,auth)
 	if !auth {
 		w.WriteHeader(403)
 		return
