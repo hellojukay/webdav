@@ -26,16 +26,16 @@ func init(){
 func auth(w http.ResponseWriter, req *http.Request){
 	u , p , auth := req.BasicAuth()
 	fmt.Printf("current user, username=%s, password=%s, exist=%v",u,p,auth)
-	if !auth {
-		w.Header().Set("WWW-Authenticate", `Basic realm="davfs"`)
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
-		return
-	}
-	if !(u == *username && p == *password){
-		w.Header().Set("WWW-Authenticate", `Basic realm="davfs"`)
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
-		return
-	}
+	//if !auth {
+	//	w.Header().Set("WWW-Authenticate", `Basic realm="davfs"`)
+	//	http.Error(w, "Unauthorized", http.StatusUnauthorized)
+	//	return
+	//}
+	//if !(u == *username && p == *password){
+	//	w.Header().Set("WWW-Authenticate", `Basic realm="davfs"`)
+	//	http.Error(w, "Unauthorized", http.StatusUnauthorized)
+	//	return
+	//}
 	h.ServeHTTP(w,req)
 }
 func main() {
