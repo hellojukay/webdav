@@ -23,13 +23,11 @@ func auth(w http.ResponseWriter, req *http.Request){
 	if !auth {
 		w.Header().Set("WWW-Authenticate", `Basic realm="davfs"`)
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
-		w.WriteHeader(403)
 		return
 	}
 	if !(u == *username && p == *password){
 		w.Header().Set("WWW-Authenticate", `Basic realm="davfs"`)
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
-		w.WriteHeader(403)
 		return
 	}
 	var fs webdav.Dir = "/"
