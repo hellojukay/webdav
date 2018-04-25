@@ -35,7 +35,7 @@ func auth(w http.ResponseWriter, req *http.Request){
 func main() {
 	http.HandleFunc("/",auth)
 	//then use the Handler.ServeHTTP Method as the http.HandleFunc
-	err := http.ListenAndServe(*port, nil)
+	err := http.ListenAndServe(*bind, nil)
 	if err != nil {
 		log.Print(err.Error())
 	}
