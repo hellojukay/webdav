@@ -20,14 +20,18 @@ func init(){
 func auth(w http.ResponseWriter, req *http.Request){
 	u , p , auth := req.BasicAuth()
 	fmt.Printf("current user, username=%s, password=%v, exist",u,p,auth)
-	//if !auth {
-	//	w.WriteHeader(403)
-	//	return
-	//}
-	//if !(u == *username && p == *password){
-	//	w.WriteHeader(403)
-	//	return
-	//}
+	if !auth {
+		w.Header().Set("WWW-Authenticate", `Basic realm="davfs"`)
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		w.WriteHeader(403)
+		return
+	}
+	if !(u == *username && p == *password){
+		w.Header().Set("WWW-Authenticate", `Basic realm="davfs"`)
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		w.WriteHeader(403)
+		return
+	}
 	var fs webdav.Dir = "/"
 	h := new(webdav.Handler)
 	h.FileSystem = fs
