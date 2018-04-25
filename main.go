@@ -19,7 +19,7 @@ func init(){
 }
 func auth(w http.ResponseWriter, req *http.Request){
 	u , p , auth := req.BasicAuth()
-	fmt.Printf("current user, username=%s, password=%s, exist",u,p,auth)
+	fmt.Printf("current user, username=%s, password=%v, exist",u,p,auth)
 	if !auth {
 		w.WriteHeader(403)
 		return
