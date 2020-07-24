@@ -1,2 +1,2 @@
-# plat_webdav
+# webdav
 a golang webdav server!
